@@ -7,86 +7,91 @@ export class DeveloperAgent implements IWordPressAgent {
     async initialize(): Promise<void> {
         await this.clineProvider.postMessageToWebview({
             type: 'systemPrompt',
-            text: `You are a WordPress Developer with expertise in:
-1. WordPress Plugin Development
-   - Actions and Filters
-   - Plugin API
-   - Settings API
-   - Options API
-   - Custom Post Types
-   - Taxonomies
-   - Meta Boxes
-   - Transients API
+            text: `You are a WordPress Developer specialized in creating plugins and themes. Your responsibilities include:
 
-2. WordPress Theme Development
-   - Template Hierarchy
-   - Theme API
-   - Custom Templates
-   - Block Templates
-   - Theme.json
-   - Full Site Editing
+1. Writing clean, maintainable WordPress code
+2. Following WordPress Coding Standards
+3. Implementing secure code practices
+4. Creating custom blocks when needed
+5. Building REST API endpoints
+6. Database schema implementation
+7. Performance optimization
 
-3. Block Editor Development
-   - Custom Blocks
-   - Dynamic Blocks
-   - Block Patterns
-   - Block Templates
-   - Block Variations
-
-4. WordPress REST API
-   - Custom Endpoints
-   - Authentication
-   - JSON Responses
-   - API Schema
-   - Versioning
-
-5. WordPress Standards
-   - Coding Standards
-   - Security Best Practices
-   - Performance Optimization
-   - Internationalization
-   - Accessibility
-   
-You implement features based on requirements and ensure code quality.`
+You are proficient in:
+- PHP 7.4+
+- WordPress Plugin API
+- WordPress Theme Development
+- Gutenberg Block Development
+- WordPress REST API
+- WordPress Security Best Practices
+- WP-CLI
+- WordPress Database Operations
+- WordPress Action/Filter Hooks
+- Modern JavaScript (ES6+)
+- React (for block editor)
+- CSS/SASS
+- WordPress Testing`
         });
     }
 
     async processMessage(message: string): Promise<string> {
-        if (message.toLowerCase().includes('implement') || message.toLowerCase().includes('develop')) {
-            return await this.startDevelopment(message);
+        if (message.toLowerCase().includes('implement') || message.toLowerCase().includes('create')) {
+            return await this.startImplementation(message);
         }
         
-        if (message.toLowerCase().includes('test') || message.toLowerCase().includes('review')) {
-            return await this.reviewCode(message);
-        }
-
-        return "I'm your WordPress Developer. I can help you implement features, develop plugins/themes, create custom blocks, and ensure code quality. What would you like me to work on?";
+        return 'I am your WordPress Developer. What would you like me to implement?';
     }
 
-    private async startDevelopment(message: string): Promise<string> {
-        // Here we would parse the requirements and start development
-        return `I'll help you implement this feature. Let's follow these steps:
-1. Review the requirements
-2. Create necessary files and folder structure
-3. Implement WordPress hooks and filters
-4. Add necessary security measures
-5. Implement error handling
-6. Add inline documentation
-7. Test the implementation
+    private async startImplementation(message: string): Promise<string> {
+        // Analyze requirements and start implementation
+        return `I'll help implement your WordPress project. First, let me confirm:
+
+1. File Structure:
+   - Following WordPress standards
+   - Proper directory organization
+   - Separation of concerns
+
+2. Implementation Details:
+   - Required hooks and filters
+   - Database operations
+   - Security measures
+   - Performance considerations
+
+3. Testing Strategy:
+   - Unit tests
+   - Integration tests
+   - Browser testing
 
 Would you like me to proceed with the implementation?`;
     }
 
-    private async reviewCode(message: string): Promise<string> {
-        return `I'll review the code based on:
-1. WordPress Coding Standards
-2. Security best practices
-3. Performance considerations
-4. Proper use of WordPress APIs
-5. Error handling
-6. Documentation quality
+    public async implementFeature(feature: string, requirements: ProjectRequirements): Promise<void> {
+        // Implementation logic will go here
+        // This will be called by the main coordinator when a feature needs to be implemented
+        
+        // 1. Create necessary files
+        await this.createFileStructure(requirements);
+        
+        // 2. Implement the feature
+        await this.writeCode(feature, requirements);
+        
+        // 3. Add tests
+        await this.addTests(feature);
+    }
 
-Please provide the code you'd like me to review.`;
+    private async createFileStructure(requirements: ProjectRequirements): Promise<void> {
+        // Create appropriate WordPress file structure
+        // This will interact with VSCode workspace to create files
+    }
+
+    private async writeCode(feature: string, requirements: ProjectRequirements): Promise<void> {
+        // Write actual implementation code
+        // This will interact with VSCode to create/modify files
+    }
+
+    private async addTests(feature: string): Promise<void> {
+        // Add appropriate tests for the feature
+        // This will create test files in the correct location
     }
 
     getRole(): string {
@@ -98,11 +103,13 @@ Please provide the code you'd like me to review.`;
             'Plugin Development',
             'Theme Development',
             'Block Editor Development',
-            'REST API Implementation',
-            'Code Review',
-            'Performance Optimization',
+            'REST API Development',
+            'Database Operations',
             'Security Implementation',
-            'WordPress Standards Compliance'
+            'Performance Optimization',
+            'Testing',
+            'Code Review',
+            'Documentation'
         ];
     }
 }
